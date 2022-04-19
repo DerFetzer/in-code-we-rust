@@ -1,0 +1,8 @@
+// All books in the shop
+
+Bussysteme in der Fahrzeugtechnik; Werner Zimmermann, Ralf Schmidgall; 35.96
+Schreib oder stirb; Micky Beisenherz, Sebastian Fitzek; 19.99
+Du darfst nicht alles glauben, was du denkst; Kurt Krömer; 20
+Nachts im Kanzleramt; 20
+Was im Verborgenen ruht; Elizabeth George; 26; Akribische Recherche, präziser Spannungsaufbau und höchste psychologische Raffinesse zeichnen die Bücher der Amerikanerin Elizabeth George aus.
+Eine Frage der Chemie; Bonnie Garmus; 22; Bonnie Garmus hat eine literarische Heldin geschaffen, die in die falsche Zeit hineingeboren wird und gerade deshalb so ungeheuer zeitgemäß ist.; Piper
