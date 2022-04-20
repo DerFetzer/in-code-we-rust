@@ -1,4 +1,4 @@
-use _01_file_option_result::{Book, ParseBookError};
+use lesson_01::{Book, ParseBookError};
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::str::FromStr;
