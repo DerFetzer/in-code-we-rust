@@ -7,4 +7,6 @@ pub fn main() {
         .add_ingredient("Sugar");
 
     println!("This will be a yummy cake: {cake:?}!");
+
+    cake.eat();
 }
