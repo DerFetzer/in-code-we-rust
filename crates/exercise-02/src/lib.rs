@@ -1,44 +1,55 @@
 // Todo: Make all bins compile
 // cargo run --bin <bin-name>
 
-pub struct Cake {
-    ready: bool,
+use std::marker::PhantomData;
+
+pub trait CakeState {}
+
+pub struct Raw {}
+pub struct Baked {}
+
+impl CakeState for Raw {}
+impl CakeState for Baked {}
+
+pub struct Cake<S: CakeState> {
     ingredients: Vec<String>,
+    _phantom_data: PhantomData<S>,
 }
 
-impl Cake {
-    pub fn new() -> Self {
-        Cake {
-            ready: false,
-            ingredients: vec![],
-        }
-    }
-
-    pub fn is_ready(&self) -> bool {
-        self.ready
-    }
-
-    pub fn add_ingredient(&mut self, ingredient: String) {
-        if self.is_ready() {
-            panic!("Cannot add ingredient to baked cake")
-        }
-        self.ingredients.push(ingredient)
-    }
-
+impl<S: CakeState> Cake<S> {
     pub fn get_ingredients(&self) -> &Vec<String> {
         &self.ingredients
     }
+}
 
-    pub fn bake(&mut self) {
-        if self.is_ready() {
-            panic!("Cannot bake cake twice")
+impl Cake<Raw> {
+    pub fn new() -> Self {
+        Self {
+            ingredients: vec![],
+            _phantom_data: PhantomData,
         }
-        self.ready = true
+    }
+
+    pub fn add_ingredient(mut self, ingredient: String) -> Self {
+        self.ingredients.push(ingredient);
+        self
+    }
+
+    pub fn bake(self) -> Cake<Baked> {
+        Cake {
+            ingredients: self.ingredients,
+            _phantom_data: PhantomData,
+        }
+    }
+}
+
+impl Cake<Baked> {
+    pub fn decorate(mut self, decoration: String) -> Self {
+        self.ingredients.push(decoration);
+        self
     }
 
     pub fn eat(self) {
-        if !self.ready {
-            panic!("Cannot eat cake that is not ready")
-        }
+        println!("Yummy!");
     }
 }
