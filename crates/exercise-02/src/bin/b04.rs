@@ -17,7 +17,11 @@ pub fn main() {
         .decorate("Cream".to_string())
         .decorate("Sprinkles".to_string());
 
+    println!("Wow, what a cake: {decorated_cake:?}!");
+
+    let first_ingredient = decorated_cake.get_ingredients().first().unwrap();
+
     decorated_cake.eat();
 
-    println!("Wow, what a cake: {decorated_cake:?}!");
+    println!("The first ingredient was: {first_ingredient}");
 }
