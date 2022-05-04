@@ -35,11 +35,21 @@ impl Cake<Raw> {
         self
     }
 
-    pub fn bake(self) -> Cake<Baked> {
-        Cake {
-            ingredients: self.ingredients,
-            _phantom_data: PhantomData,
+    pub fn bake(self) -> Option<Cake<Baked>> {
+        if self.ingredients.is_empty() {
+            None
+        } else {
+            Some(Cake {
+                ingredients: self.ingredients,
+                _phantom_data: PhantomData,
+            })
         }
+    }
+}
+
+impl Default for Cake<Raw> {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

@@ -7,21 +7,24 @@ pub fn main() {
     let eggs = "Eggs".to_string();
     let sugar = "Sugar".to_string();
 
-    let baked_cake = cake
+    if let Some(baked_cake) = cake
         .add_ingredient(flour)
         .add_ingredient(eggs)
         .add_ingredient(sugar)
-        .bake();
+        .bake()
+    {
+        let decorated_cake = baked_cake
+            .decorate("Cream".to_string())
+            .decorate("Sprinkles".to_string());
 
-    let decorated_cake = baked_cake
-        .decorate("Cream".to_string())
-        .decorate("Sprinkles".to_string());
+        println!("Wow, what a cake: {decorated_cake:?}!");
 
-    println!("Wow, what a cake: {decorated_cake:?}!");
+        let first_ingredient = decorated_cake.get_ingredients().first().unwrap();
 
-    let first_ingredient = decorated_cake.get_ingredients().first().unwrap();
+        decorated_cake.eat();
 
-    decorated_cake.eat();
-
-    println!("The first ingredient was: {first_ingredient}");
+        println!("The first ingredient was: {first_ingredient}");
+    } else {
+        println!("Nothing to bake")
+    }
 }
