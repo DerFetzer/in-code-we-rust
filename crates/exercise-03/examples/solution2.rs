@@ -79,7 +79,7 @@ impl Library {
     }
 
     /// Get Iterator over all books in the library
-    pub fn get_books(&self) -> impl ExactSizeIterator + '_ {
+    pub fn get_books(&self) -> impl ExactSizeIterator<Item = &Book> + '_ {
         self.stock.keys()
     }
 }
