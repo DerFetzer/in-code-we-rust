@@ -1,5 +1,8 @@
 use exercise_03::{Book, Library};
 
+// TODO: 1. Implement Library
+// TODO: 2. Add transaction log
+
 fn main() {
     let mut library = Library::default();
 
@@ -14,12 +17,12 @@ fn main() {
         author: "Micky Beisenherz, Sebastian Fitzek".to_string(),
     };
 
-    assert_eq!(library.get_books().len(), 0);
+    // assert_eq!(library.get_books().len(), 0); // TODO:
 
     library.fill_stock(book1.clone(), 10);
     library.fill_stock(book2.clone(), 20);
 
-    assert_eq!(library.get_books().len(), 2);
+    // assert_eq!(library.get_books().len(), 2); // TODO:
 
     assert_eq!(library.get_overall_amount(&book1).unwrap(), 10);
     assert_eq!(library.get_lent_amount(&book1).unwrap(), 0);
