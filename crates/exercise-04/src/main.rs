@@ -1,12 +1,11 @@
-use std::collections::HashMap;
-use std::fs::File;
-use std::io::{BufRead, BufReader, BufWriter, Write};
-use std::path::Path;
-use std::sync::{Arc, Mutex};
-
-const BIBLE_URL: &str = "https://www.sermon-online.com/download/german/MartinLuther-1912/Martin_Luther_Uebersetzung_1912.txt";
-const CHUNK_SIZE: usize = 1000;
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    todo!()
+    let reader = exercise_04::get_and_open_bible()?;
+
+    let lines: Vec<String> = reader
+        .lines()
+        .skip(1)
+        .flat_map(|l| exercise_04::extract_text_from_line(&l.unwrap()))
+        .collect();
+
+    todo!("Count unique words using multiple threads.")
 }
