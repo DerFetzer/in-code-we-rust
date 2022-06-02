@@ -11,7 +11,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let lines: Vec<String> = reader
         .lines()
-        .skip(1)
         .flat_map(|l| exercise_04::extract_text_from_line(&l.unwrap()))
         .collect();
 
@@ -22,6 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for chunk in lines.chunks(CHUNK_SIZE) {
         let tx = tx.clone();
         let owned_chunk = chunk.to_vec();
+
         handles.push(std::thread::spawn(move || {
             let mut local_words: HashMap<String, u32> = HashMap::new();
             for line in owned_chunk {

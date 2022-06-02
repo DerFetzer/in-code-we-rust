@@ -13,7 +13,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let lines: Vec<String> = reader
         .lines()
-        .skip(1)
         .flatten()
         .collect::<Vec<_>>()
         .par_iter()
