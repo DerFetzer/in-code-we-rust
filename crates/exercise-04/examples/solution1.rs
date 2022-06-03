@@ -32,7 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             let mut words = words.lock().unwrap();
             for (word, count) in local_words {
-                *words.entry(word).or_insert(count) += count;
+                *words.entry(word).or_default() += count;
             }
         }));
     }
