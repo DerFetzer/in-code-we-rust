@@ -19,12 +19,12 @@ pub fn count_words(text: String, chunk_size: usize) -> Vec<(String, u32)> {
                 .map(|w| w.trim())
                 .filter(|w| !w.is_empty())
             {
-                *local_words.entry(word.to_string()).or_default() += 1;
+                *local_words.entry(word.to_string()).or_insert(0) += 1;
             }
         }
         let mut words = words.lock().unwrap();
         for (word, count) in local_words {
-            *words.entry(word).or_insert(count) += count;
+            *words.entry(word).or_insert(0) += count;
         }
     });
 
@@ -35,4 +35,16 @@ pub fn count_words(text: String, chunk_size: usize) -> Vec<(String, u32)> {
     word_list.reverse();
 
     word_list
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_count_words() {
+        let s = "test".to_string();
+        let res = count_words(s, 1);
+        assert_eq!(res[0], ("test".to_string(), 1))
+    }
 }
