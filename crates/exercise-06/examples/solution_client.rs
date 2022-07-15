@@ -13,6 +13,6 @@ fn main() -> std::io::Result<()> {
         socket.send(line.as_bytes())?;
 
         let num_bytes = socket.recv(&mut buf)?;
-        println!("{}", std::str::from_utf8(&buf[..num_bytes]).unwrap());
+        print!("{}", std::str::from_utf8(&buf[..num_bytes]).unwrap());
     }
 }
