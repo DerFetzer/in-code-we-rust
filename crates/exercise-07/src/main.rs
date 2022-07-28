@@ -1,11 +1,15 @@
-use std::time::Duration;
+use std::error::Error;
+use std::net::{TcpListener, TcpStream};
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    console_subscriber::init();
+fn handle_client(stream: TcpStream) -> Result<(), Box<dyn Error>> {
+    todo!("Implement me!")
+}
 
-    loop {
-        tokio::spawn(async { tokio::time::sleep(Duration::from_secs(1)).await });
-        tokio::time::sleep(Duration::from_millis(500)).await
+fn main() -> Result<(), Box<dyn Error>> {
+    let listener = TcpListener::bind("127.0.0.1:1122")?;
+
+    for stream in listener.incoming() {
+        handle_client(stream?)?;
     }
+    Ok(())
 }
