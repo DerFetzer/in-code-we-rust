@@ -20,7 +20,7 @@ fn handle_client(mut stream: TcpStream) -> Result<(), Box<dyn Error>> {
         match line?.trim() {
             "q" => break,
             name => {
-                println!("{name}");
+                println!("New query: {name}");
                 let res = client.get(API_URL).query(&[("name", name)]).send()?;
                 let response: GenderizeResponse = res.error_for_status()?.json()?;
                 stream.write_all(format!("{}\n", response.gender).as_bytes())?;
