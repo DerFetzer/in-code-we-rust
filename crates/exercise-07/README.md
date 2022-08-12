@@ -1,4 +1,4 @@
-# `exercise-06`
+# `exercise-07`
 This exercise is about `async` Rust using [tokio](https://docs.rs/tokio/latest/tokio/index.html).
 Goal of this exercise is to write an `async` TCP server that queries the [genderize.io API](https://genderize.io/).
 
