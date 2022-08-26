@@ -1,6 +1,6 @@
 # `exercise-08`
 This exercise and the ones following are different from the ones before.
-Head over to the repo [result-guide](https://github.com/DerFetzer/result-guide) and clone it.
+Head over to the repo [result-guide](https://github.com/DerFetzer/result-guide) clone it and checkout branch `01-intro`.
 
 ## ToDo
 1. Install `sea-orm-cli` with `cargo install sea-orm-cli`.
