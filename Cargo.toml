@@ -1,6 +1,6 @@
 [workspace]
 members = ["crates/*"]
-exclude = ["crates/exercise-08", "crates/exercise-09"]
+exclude = ["crates/exercise-08", "crates/exercise-09",  "crates/exercise-11"]
 
 [profile.release]
 debug = true
