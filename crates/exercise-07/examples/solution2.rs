@@ -35,7 +35,7 @@ async fn handle_client(mut stream: TcpStream) {
                         .await
                         .unwrap(),
                     Err(e) => tx
-                        .write_all(format!("Error: {}\n", e.to_string()).as_bytes())
+                        .write_all(format!("Error: {e}\n").as_bytes())
                         .await
                         .unwrap(),
                 }

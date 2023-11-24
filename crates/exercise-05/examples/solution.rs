@@ -1,7 +1,6 @@
-use crate::egui::Align;
 use eframe::egui;
-use eframe::egui::{Layout, ScrollArea};
-use egui_extras::{Size, TableBuilder};
+use eframe::egui::{Align, Layout, ScrollArea, ViewportCommand};
+use egui_extras::{Column, TableBuilder};
 use exercise_05::count_words;
 use std::sync::mpsc::TryRecvError;
 
@@ -21,7 +20,8 @@ fn main() {
         "Word count App",
         options,
         Box::new(|_cc| Box::new(WordCountApp::new(tx_text, rx_result))),
-    );
+    )
+    .unwrap();
 }
 
 struct WordCountApp {
@@ -48,7 +48,7 @@ impl WordCountApp {
 }
 
 impl eframe::App for WordCountApp {
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.with_layout(Layout::top_down_justified(Align::LEFT), |ui| {
                 match self.rx_result.try_recv() {
@@ -58,7 +58,9 @@ impl eframe::App for WordCountApp {
                         self.word_count = Some(result);
                     }
                     Err(TryRecvError::Empty) => {}
-                    Err(TryRecvError::Disconnected) => frame.quit(),
+                    Err(TryRecvError::Disconnected) => {
+                        ctx.send_viewport_cmd(ViewportCommand::Close)
+                    }
                 }
 
                 ui.heading("Input text");
@@ -85,9 +87,9 @@ impl eframe::App for WordCountApp {
 
                 TableBuilder::new(ui)
                     .striped(true)
-                    .cell_layout(Layout::left_to_right().with_cross_align(Align::Center))
-                    .column(Size::initial(100.).at_least(70.))
-                    .column(Size::remainder().at_least(40.))
+                    .cell_layout(Layout::left_to_right(Align::Center))
+                    .column(Column::initial(100.).at_least(70.))
+                    .column(Column::remainder().at_least(40.))
                     .resizable(true)
                     .header(20.0, |mut header| {
                         header.col(|ui| {

@@ -5,12 +5,15 @@ use std::marker::PhantomData;
 
 pub trait CakeState {}
 
+#[derive(Debug)]
 pub struct Raw {}
+#[derive(Debug)]
 pub struct Baked {}
 
 impl CakeState for Raw {}
 impl CakeState for Baked {}
 
+#[derive(Debug)]
 pub struct Cake<S: CakeState> {
     ingredients: Vec<String>,
     _phantom_data: PhantomData<S>,

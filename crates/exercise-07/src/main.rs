@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::net::{TcpListener, TcpStream};
 
-fn handle_client(stream: TcpStream) -> Result<(), Box<dyn Error>> {
+fn handle_client(_stream: TcpStream) -> Result<(), Box<dyn Error>> {
     todo!("Implement me!")
 }
 
