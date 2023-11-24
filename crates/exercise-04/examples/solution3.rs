@@ -13,19 +13,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let lines: Vec<String> = reader
         .lines()
-        .flatten()
-        .collect::<Vec<_>>()
-        .par_iter()
-        .flat_map(|l| exercise_04::extract_text_from_line(l))
+        .flat_map(|l| exercise_04::extract_text_from_line(&l.unwrap()))
         .collect();
 
     let words: Mutex<HashMap<String, u32>> = Mutex::new(HashMap::new());
 
     lines.par_chunks(CHUNK_SIZE).for_each(|chunk| {
-        let owned_chunk = chunk.to_vec();
-
         let mut local_words: HashMap<String, u32> = HashMap::new();
-        for line in owned_chunk {
+        for line in chunk {
             for word in line.replace([',', '.', ';'], "").to_lowercase().split(' ') {
                 *local_words.entry(word.to_string()).or_default() += 1;
             }
