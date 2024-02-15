@@ -1,9 +1,8 @@
 use std::net::{SocketAddr, UdpSocket};
-use std::sync::Arc;
 
 fn main() -> std::io::Result<()> {
-    let socket = Arc::new(UdpSocket::bind("127.0.0.1:11223")?);
-    let sender = socket.clone();
+    let socket = UdpSocket::bind("127.0.0.1:11223")?;
+    let sender = socket.try_clone()?;
 
     let (tx, rx) = std::sync::mpsc::channel::<(Vec<u8>, SocketAddr)>();
 

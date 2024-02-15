@@ -6,19 +6,19 @@ use std::net::UdpSocket;
 #[clap(name = "udp-cli", author, version, long_about = None)]
 struct Args {
     /// Local address to bind to
-    #[clap(long, value_parser, default_value = "127.0.0.1")]
+    #[arg(long, default_value = "0.0.0.0")]
     bind_address: String,
 
     /// Local port to bind to
-    #[clap(long, value_parser)]
+    #[arg(long)]
     bind_port: Option<u16>,
 
     /// Destination address to bind to
-    #[clap(value_parser)]
+    #[arg()]
     destination_address: String,
 
     /// Destination port to bind to
-    #[clap(value_parser)]
+    #[arg()]
     destination_port: u16,
 }
 
