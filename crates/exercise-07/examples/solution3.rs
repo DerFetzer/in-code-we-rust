@@ -2,7 +2,7 @@ use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::error::Error;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, RwLock};
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::{TcpListener, TcpStream};
 
@@ -16,7 +16,7 @@ struct GenderizeResponse {
     pub count: i64,
 }
 
-type Cache = Arc<Mutex<HashMap<String, GenderizeResponse>>>;
+type Cache = Arc<RwLock<HashMap<String, GenderizeResponse>>>;
 
 async fn query_api(client: &Client, name: &str) -> Result<GenderizeResponse, reqwest::Error> {
     let res = client.get(API_URL).query(&[("name", name)]).send().await?;
@@ -34,17 +34,17 @@ async fn handle_client(mut stream: TcpStream, cache: Cache) {
             name => {
                 println!("New query: {name}");
                 let cached_response = {
-                    let lock = cache.lock().unwrap();
+                    let lock = cache.read().unwrap();
                     lock.get(name).cloned()
                 };
                 let response = if let Some(gender_respone) = cached_response {
                     println!("Cache hit: {}", name);
-                    gender_respone.clone()
+                    gender_respone
                 } else {
                     match query_api(&client, name).await {
                         Ok(response) => {
                             cache
-                                .lock()
+                                .write()
                                 .unwrap()
                                 .insert(name.to_string(), response.clone());
                             response
