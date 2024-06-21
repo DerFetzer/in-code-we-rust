@@ -1,6 +1,6 @@
 [workspace]
 members = ["crates/*"]
-exclude = ["crates/exercise-08", "crates/exercise-09",  "crates/exercise-11"]
+exclude = ["crates/exercise-08", "crates/exercise-09",  "crates/exercise-11", "crates/exercise-12"]
 resolver = "2"
 
 [profile.release]
